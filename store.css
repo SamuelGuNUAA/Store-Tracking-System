@@ -1,0 +1,139 @@
+<style type="text/css">
+body{
+    margin-left: 0px;
+    margin-top: 0px;
+}
+header{
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #7088AD;
+    text-align: left;
+    padding-left: 10px;
+    display: block;
+    width:100%;
+}
+[id^=td_title]{
+    font-size: 12px;
+    color:#333333;
+    background-color: #E6E6E6;
+    width:10%;
+    text-align: right;
+    padding-right: 5px;
+}
+[id^=td_content]{
+    width:15%;
+    height:22;
+    background-color: #FAFAFA;
+    text-align: left;
+    padding-left: 2px;
+}
+span{
+    color:#ff0000;
+}
+input{
+    width:95%;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-top-color: #426c7c;
+    border-right-color: #cccccc;
+    border-bottom-color: #cccccc;
+    border-left-color: #426c7c;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border:1px solid #0066cc;
+    height:18px;
+}
+[id^=btnSearch]{
+    //background-image: url(image/btn_bg1.jpg);
+    background-color: black;
+    width:20px;
+    color:white;
+}
+input:read-only{
+    background-color: yellow;
+}
+input:-moz-read-only{
+    background-color: yellow;
+}
+input#tbxNum{
+    text-align: right;
+}
+input#tbxOrgPrice{
+    text-align: right;
+}
+input#tbxDiscount{
+    text-align: right;
+}
+input#tbxFinalPrice{
+    text-align: right;
+}
+input#tbxMoneyRMB{
+    text-align: right;
+}
+#tbxGoodsCode{
+    width:95%;
+}
+#tbxBrand,#tbxPerson,#tbxProduct{
+    width:150px;
+}
+[id$=\Name]{
+    width:60%;
+}
+div{
+    text-align: right;
+}
+div#buttonDiv{
+    width:100%;
+    background-color: whitesmoke;
+}
+
+div input[type="button"]{
+    font-size: 12px;
+    width:68px;
+    height:20px;
+    cursor:hand;
+    border:none;
+    font-family: cursive;
+    background-color: black;
+    //background-image: url(image/btn_bg1.jpg);
+    color: white;
+}
+input[type="text"]#tbxSearchCode{
+    width:100px;
+}
+div#infoTable{
+    overflow: auto;
+    width:100%;
+    height:100%;
+}
+div table{
+    width: 100%;
+    background-color: white;
+    cellpadding:1;
+    cellspacing:1;
+    font-size: 12px;
+    text-align: center;
+}
+div table th{
+    height:22;
+    background-color: #7088ad;
+    color: #ffffff;
+    width:8%;
+}
+div table tr{
+    height:30;
+}
+div table tr:nth-child(even){
+    background-color: #e6e6e6;
+}
+div table th:nth-last-child(1){
+    width:15%;
+}
+div table th:nth-last-child(2){
+    width:15%;
+}
+</style>
