@@ -20,7 +20,7 @@ function init(){
         document.getElementById("tbxBrandName").value="";
         var name;
         db.transaction(function(tx){
-            tx.executeSql("SELECT*FROM brand where code=?", [brand], function(tx,rs){
+            tx.executeSql("SELECT*FROM brand where ordernum=?", [brand], function(tx,rs){
                 name=rs.rows.time(0).name;
                 document.getElementById("tbxBrandName").value=name;
             });
@@ -32,7 +32,7 @@ function tbxPerson_onblur(){
     document.getElementById("tbxPersonName").value="";
     var name;
     db.transaction(function(tx){
-        tx.executeSql("SELECT * FROM person where code=?", [person], function(tx, rs){
+        tx.executeSql("SELECT * FROM person where ordernum=?", [person], function(tx, rs){
             name = rs.rows.item(0).name;
             document.getElementById("tbxPersonName").value = name;
         });
@@ -61,7 +61,7 @@ function btnSearchGoods_onclick(){
         alert("search 1a");
         return;
     }
-    document.all.item("tbxGoodsCode").value=rc;
+    document.all.item("tbxItemNum").value=rc;
     
 }
 
@@ -76,8 +76,8 @@ function checkOrderNumExist(){
             alert("cp111");
             for (var i=0; i<rs.rows.length; i++){
                 alert("CP22");
-                alert(rs.rows.item(i).ordernum + "::" + data.Code);
-                if(rs.rows.item(i).ordernum == data.Code){
+                alert(rs.rows.item(i).ordernum + "::" + data.OrderNum);
+                if(rs.rows.item(i).ordernum == data.OrderNum){
                     alert("Order Number already exists!!!");
                     return true;
                 }
@@ -98,7 +98,7 @@ function testWW2()
             return;
         db.transaction(function(bx){
         bx.executeSql("INSERT INTO orders VALUES(?,?,?,?,?,?,?,?,?,?,?)",
-                        [data.Code, data.Date, data.GoodsCode, data.Customer, data.Brand, data.Num, data.OrgPrice, data.Discount, data.FinalPrice, data.MoneyRMB, data.Comment],
+                        [data.OrderNum, data.Date, data.ItemNum, data.Customer, data.Brand, data.Num, data.OrgPrice, data.Discount, data.FinalPrice, data.MoneyRMB, data.Comment],
                      function(bx, rx){
                         alert(ffg + "Data saved!");
                         showAllData(false);
@@ -113,10 +113,10 @@ function testWW2()
 function btnAdd_onclick(){
     alert("cp11");
 //var ffg=true;
-//tbxCode, tbxDate, tbxGoodsCode, tbxCustomer, tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, tbxFinalPrice, tbxMoneyRMB, tbxComment    
-    data.Code = document.getElementById("tbxCode").value;
+//tbxOrderNum, tbxDate, tbxItemNum, tbxCustomer, tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, tbxFinalPrice, tbxMoneyRMB, tbxComment    
+    data.OrderNum = document.getElementById("tbxOrderNum").value;
     data.Date = document.getElementById("tbxDate").value;
-    data.GoodsCode = document.getElementById("tbxGoodsCode").value;
+    data.ItemNum = document.getElementById("tbxItemNum").value;
     data.Customer = document.getElementById("tbxCustomer").value;
     //alert(data.Brand);
     data.Brand = document.getElementById("tbxBrand").value;
@@ -134,27 +134,29 @@ function btnAdd_onclick(){
     
     db.transaction(function(tx){
         tx.executeSql("INSERT INTO orders VALUES(?,?,?,?,?,?,?,?,?,?,?)",
-                        [data.Code, data.Date, data.GoodsCode, data.Customer, data.Brand, data.Num, data.OrgPrice, data.Discount, data.FinalPrice, data.MoneyRMB, data.Comment],
+                        [data.OrderNum, data.Date, data.ItemNum, data.Customer, data.Brand, data.Num, data.OrgPrice, data.Discount, data.FinalPrice, data.MoneyRMB, data.Comment],
                      function(tx, rs){
                         alert("Data saved!");
                         showAllData(false);
-                        btnNew_onclick();
+                        //btnNew_onclick();
                     },
                      function(tx, error){
                         alert(error.source + "::" + error.message);
                     }
                      );
     });
-    
+
+//OrderNum field back to readonly and reset form
+    btnSubmit_Update_Delete_Done();
 }
 
 function btnUpdate_onclick(){
 
-    //tbxCode, tbxDate, tbxGoodsCode, tbxCustomer, tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, tbxFinalPrice, tbxMoneyRMB, tbxComment 
+    //tbxOrderNum, tbxDate, tbxItemNum, tbxCustomer, tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, tbxFinalPrice, tbxMoneyRMB, tbxComment 
     //ordernum, date, itemnum, customer, brand, num, orgprice, discount, finalprice, moneyrmb, comment
-    data.Code = document.getElementById("tbxCode").value;
+    data.OrderNum = document.getElementById("tbxOrderNum").value;
     data.Date = document.getElementById("tbxDate").value;
-    data.GoodsCode = document.getElementById("tbxGoodsCode").value;
+    data.ItemNum = document.getElementById("tbxItemNum").value;
     data.Customer = document.getElementById("tbxCustomer").value;
     data.Brand = document.getElementById("tbxBrand").value;
     data.Num = document.getElementById("tbxNum").value;
@@ -165,8 +167,8 @@ function btnUpdate_onclick(){
     data.Comment = document.getElementById("tbxComment").value;  
     
     db.transaction(function(tx){
-        tx.executeSql("UPDATE orders set date=?, itemnum=?, customer=?, brand=?, num=?, orgprice=?, discount=?, finalprice=?, moneyrmb=?, comment=? where ordernum=?",
-                     [data.Date, data.GoodsCode, data.Customer, data.Brand, data.Num, data.OrgPrice, data.Discount, data.FinalPrice, data.MoneyRMB,data.Comment, data.Code],
+        tx.executeSql("UPDATE orders set date=?, customer=?, brand=?, num=?, orgprice=?, discount=?, finalprice=?, moneyrmb=?, comment=? where ordernum=? AND itemnum=?",
+                     [data.Date, data.Customer, data.Brand, data.Num, data.OrgPrice, data.Discount, data.FinalPrice, data.MoneyRMB, data.Comment, data.OrderNum, data.ItemNum],
                       function(tx, rs){
                             alert("data updated!");
                             showAllData(false);
@@ -176,21 +178,14 @@ function btnUpdate_onclick(){
                       }
                      );
     });
-}
-
-function btnNew_onclick(){
-    document.getElementById("form1").reset();
-    document.getElementById("tbxCode").removeAttribute("readonly");
-    document.getElementById("btnAdd").disable="";
-    document.getElementById("btnUpdate").disable="disabled";
-    document.getElementById("btnDelete").disable="disabled";
+    btnSubmit_Update_Delete_Done();
 }
 
 function btnDelete_onclick(){
-    data.Code = document.getElementById("tbxCode").value;
-    data.GoodsCode = document.getElementById("tbxGoodsCode").value;
+    data.OrderNum = document.getElementById("tbxOrderNum").value;
+    data.ItemNum = document.getElementById("tbxItemNum").value;
     db.transaction(function(tx){
-        tx.executeSql("delete from orders where ordernum=? AND itemnum=?", [data.Code, data.GoodsCode], function(tx, rs){
+        tx.executeSql("delete from orders where ordernum=? AND itemnum=?", [data.OrderNum, data.ItemNum], function(tx, rs){
             alert("Data deleted!");
             showAllData(false);
         },
@@ -198,22 +193,31 @@ function btnDelete_onclick(){
             alert(error.source + "::" + error.message);
         });
     });
-    btnNew_onclick();
+    btnSubmit_Update_Delete_Done();
+}
+
+function btnSubmit_Update_Delete_Done(){
+    document.getElementById("form1").reset();
+    document.getElementById("tbxOrderNum").setAttribute("readonly", true);
+    document.getElementById("btnAdd").disabled=true;
+    document.getElementById("btnUpdate").disabled="disabled";
+    document.getElementById("btnDelete").disabled="disabled";
 }
 
 function btnNew_onclick(){
     document.getElementById("form1").reset();
-//    document.getElementById("tbxCode").removeAttribute("readonly");
-//    document.getElementById("btnAdd").disable="";
-//    document.getElementById("btnUpdate").disable="disabled";
-//    document.getElementById("btnDelete").disable="disabled";
+    document.getElementById("tbxOrderNum").removeAttribute("readonly");
+    //Enable edit on btn Submit
+    document.getElementById("btnAdd").disabled=false;
+    document.getElementById("btnUpdate").disabled="disabled";
+    document.getElementById("btnDelete").disabled="disabled";
 }
 
 function btnClear_onclick(){
     if (document.getElementById("btnAdd").disabled==false)
-        document.getElementById("tbxCode").value="";
+        document.getElementById("tbxOrderNum").value="";
     document.getElementById("tbxDate").value="";
-    document.getElementById("tbxGoodsCode").value="";
+    document.getElementById("tbxItemNum").value="0";
     document.getElementById("tbxCustomer").value="";
     document.getElementById("tbxBrand").value="";
     document.getElementById("tbxNum").value="0";
@@ -231,11 +235,11 @@ function tr_onclick(tr,i){
     //tempArray2 = document.getElementById("hiddenPerson").value.split(";");
     //tempArray3 = document.getElementById("hiddenProduct").value.split(";");
     
-  //tbxCode, tbxDate, tbxGoodsCode, tbxCustomer, tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, tbxFinalPrice, tbxMoneyRMB, tbxComment
+  //tbxOrderNum, tbxDate, tbxItemNum, tbxCustomer, tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, tbxFinalPrice, tbxMoneyRMB, tbxComment
     
-    document.getElementById("tbxCode").value=tc.item(0).innerHTML;
+    document.getElementById("tbxOrderNum").value=tc.item(0).innerHTML;
     document.getElementById("tbxDate").value=tc.item(1).innerHTML;
-    document.getElementById("tbxGoodsCode").value=tc.item(2).innerHTML;
+    document.getElementById("tbxItemNum").value=tc.item(2).innerHTML;
     document.getElementById("tbxCustomer").value=tc.item(3).innerHTML;
     //document.getElementById("tbxBrand").value=tempArray1[i];
     document.getElementById("tbxBrand").value=tc.item(4).innerHTML;
@@ -248,17 +252,18 @@ function tr_onclick(tr,i){
     document.getElementById("tbxMoneyRMB").value=tc.item(9).innerHTML;
     document.getElementById("tbxComment").value=tc.item(10).innerHTML;
 
-    //document.getElementById("tbxCode").setAttribute("readonly", true);
-    document.getElementById("btnAdd").disable="disabled";
-    document.getElementById("btnUpdate").disable="";
-    document.getElementById("btnDelete").disable="";
+    //Button attribute setting:
+    document.getElementById("tbxOrderNum").setAttribute("readonly", true);
+    document.getElementById("btnAdd").disabled="disabled";
+    document.getElementById("btnUpdate").disabled=false;
+    document.getElementById("btnDelete").disabled="";
 }
 
 function showAllData(loadPage){
     //trace
     //alert("xxx");
     //trace
-    //tbxCode, tbxDate, tbxGoodsCode, tbxCustomer, 
+    //tbxOrderNum, tbxDate, tbxItemNum, tbxCustomer, 
     //tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, 
     //tbxFinalPrice, tbxMoneyRMB, tbxComment   
     db.transaction(function(tx){
