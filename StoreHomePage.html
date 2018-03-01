@@ -17,7 +17,7 @@
                         <tr>
                             <td id="td_title_1"><span>*</span>Order Number</td>
                             <td id="td_content_1">
-                                <input type="text" name="tbxCode" id="tbxCode" maxlength="10" required="true">
+                                <input type="number" name="tbxOrderNum" id="tbxOrderNum" maxlength="10" required="true" readonly="true">
                             </td>
                             <td id="td_title_2"><span>*</span>Date of Order</td>
                             <td id="td_content_2">
@@ -25,45 +25,45 @@
                             </td>
                             <td id="td_title_3"><span>*</span>Item Number</td>
                             <td id="td_content_3">
-                                <input type="number" name="tbxGoodsCode" id="tbxGoodsCode" maxlength="2" value="1">
+                                <input type="number" name="tbxItemNum" id="tbxItemNum" maxlength="2" value="1">
                                 <!--
                                 <input type="button" name="btnSearchGoods" id="btnSearchGoods" value="..." onclick="btnSearchGoods_onclick();">
                                 -->
                             </td>
-                            <td id="td_title_10"><span>*</span>Customer Name</td>
-                            <td id="td_content_10">
+                            <td id="td_title_4"><span>*</span>Customer Name</td>
+                            <td id="td_content_4">
                                 <input type="text" name="tbxCustomer" id="tbxCustomer" maxlength="10" required="">
                             </td>
                         </tr>
                         <tr>
-                            <td id="td_title_4">Product Name</td>
-                            <td id="td_content_4">
-                                <input type="text" name="tbxBrand" id="tbxBrand" maxlength="3" onblur="tbxBrand_onblur();">
-                                <input type="button" name="btnSearchBrand" id="btnSearchBrand" value="..." onclick="btnSearchBrand_onclick();">
+                            <td id="td_title_5">Product Name</td>
+                            <td id="td_content_5">
+                                <input type="text" name="tbxBrand" id="tbxBrand" maxlength="20" onblur="tbxBrand_onblur();">
+                                <input type="button" name="btnSearchBrand" id="btnSearchBrand" value="..." onclick="btnSearchByBrand_onclick();">
                                 <!--
                                 <input type="text" name="tbxBrandName" id="tbxBrandName" readonly="true">
                                 -->
                             </td>
-                            <td id="td_title_5">Quantity</td>
-                            <td id="td_content_5">
+                            <td id="td_title_6">Quantity</td>
+                            <td id="td_content_6">
                                 <input type="number" name="tbxNum" id="tbxNum" maxlength="6" value="0" onblur="autoCalculateFinalPrice_onclick();" onkeypress="Cancel_Input();">
                             </td>
-                            <td id="td_title_6">Original Price (RMB)</td>
-                            <td id="td_content_6">
+                            <td id="td_title_7">Original Price (RMB)</td>
+                            <td id="td_content_7">
                                 <input type="text" name="tbxOrgPrice" id="tbxOrgPrice" maxlength="6" value="0" onblur="autoCalculateFinalPrice_onclick();">
                             </td>
-                            <td id="td_title_11">Discount</td>
-                            <td id="td_content_11">
+                            <td id="td_title_8">Discount</td>
+                            <td id="td_content_8">
                                 <input type="number" name="tbxDiscount" id="tbxDiscount" maxlength="10" value="0.00" onblur="autoCalculateFinalPrice_onclick();">
                             </td>
                         </tr>
                         <tr>
-                            <td id="td_title_7">Final Price (RMB)</td>
-                            <td id="id_content_7">
+                            <td id="td_title_9">Final Price (RMB)</td>
+                            <td id="id_content_9">
                                 <input type="text" name="tbxFinalPrice" id="tbxFinalPrice" readonly="true" value="0" onblur="tbxFinalPrice_onblur();">
                             </td>
-                            <td id="td_title_12">Total Payment (RMB)</td>
-                            <td id="id_content_12">
+                            <td id="td_title_10">Total Payment (RMB)</td>
+                            <td id="id_content_10">
                                 <input type="text" name="tbxMoneyRMB" id="tbxMoneyRMB" readonly="true" value="0">
                             </td>
                             <!--
@@ -74,8 +74,8 @@
                                 <input type="text" name="tbxPersonName" id="tbxPersonName" readonly="true">
                             </td>
                             -->
-                            <td id="td_title_9">Comment</td>
-                            <td id="td_content_9">
+                            <td id="td_title_11">Comment</td>
+                            <td id="td_content_11">
                                 <input type="text" name="tbxCommnet" id="tbxComment" maxlength="20" onblur="tbxCommnet_onblur();">
                                 <!--
                                 <input type="button" name="btnSearchProduct" id="btnSearchProduct" value="..." onclick="btnSearchProduct_onclick();">
@@ -86,10 +86,10 @@
                     </tbody>
                 </table>
                 <div id="buttonDiv">
-                    <input type="button" name="btnNew" id="btnNew" value="New" onclick="btnNew_onclick();">
-                    <input type="button" name="btnAdd" id="btnAdd" value="Create" onclick="btnAdd_onclick();">
-                    <input type="button" name="btnUpdate" id="btnUpdate" value="Update" onclick="btnUpdate_onclick();">                 
-                    <input type="button" name="btnDelete" id="btnDelete" value="Delete" onclick="btnDelete_onclick();">
+                    <input type="button" name="btnNew" id="btnNew" value="New Order" onclick="btnNew_onclick();">
+                    <input type="button" name="btnAdd" id="btnAdd" value="Submit" onclick="btnAdd_onclick();" disabled=true>
+                    <input type="button" name="btnUpdate" id="btnUpdate" value="Update" onclick="btnUpdate_onclick();" disabled=true>           
+                    <input type="button" name="btnDelete" id="btnDelete" value="Delete" onclick="btnDelete_onclick();" disabled=true>
                     <input type="button" name="btnClear" id="btnClear" value="Clear" onclick="btnClear_onclick();"> 
                 </div>
             </form>
