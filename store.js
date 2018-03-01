@@ -13,7 +13,7 @@ function init(){
 }
 
 
-    function tbxBrand_onblur(){
+function tbxBrand_onblur(){
         //alert("onblur 1");
         return;
         var brand=document.getElementById("tbxBrand").value;
@@ -25,7 +25,7 @@ function init(){
                 document.getElementById("tbxBrandName").value=name;
             });
         });
-    }
+}
 
 function tbxPerson_onblur(){
     var person = document.getElementById("tbxPerson").value;
@@ -39,6 +39,9 @@ function tbxPerson_onblur(){
     });
 }
 
+//***********************************************//
+// Auto fill Price with discount and total Money //
+//***********************************************//
 function autoCalculateFinalPrice_onclick(){
     
     document.getElementById("tbxFinalPrice").value= document.getElementById("tbxOrgPrice").value - document.getElementById("tbxDiscount").value;
@@ -46,28 +49,94 @@ function autoCalculateFinalPrice_onclick(){
 }
 /*
 function tbxFinalPrice_onblur(){
-
     document.getElementById("tbxFinalPrice").value= document.getElementById("tbxOrgPrice").value - document.getElementById("tbxDiscount").value;
 }
 */
 
-function btnSearchGoods_onclick(){
-    alert("search 1");
-    
-    var rc,w;
-    rc = window.showModalDialog('SearchGoods.html','','dialogHeight:720px;dialogWidth:700px;scroll:no');
-    //alert("search 1b");
-    if (rc==null){
-        alert("search 1a");
-        return;
-    }
-    document.all.item("tbxItemNum").value=rc;
-    
+//************************************//
+// PO search function by Order Number //
+//************************************//
+function btnSearchByOrderNum_onclick(){
+    alert("search by Order Nunber...");
+    if(document.getElementById("tbxOrderNum").value!="" && document.getElementById("tbxOrderNum").value!=undefined){
+        var OrderNum = document.getElementById("tbxBrand").value;
+        
+        db.transaction(function(tx){
+            tx.executeSql("SELECT*FROM orders where ordernum=?",
+                            [OrderNum],
+                            function(tx, rs){
+                                removeAllData();
+                                for (var i=0; i<rs.rows.length; i++){
+                                    showData(rs.rows.item(i),i);
+                                }
+                            },
+                            function(tx, error){
+                                alert(error.source + "::" + error.message);
+                            }
+                        );
+        });
+        
+        btnSubmit_Update_Delete_Done();        
+    }else
+        alert("Please input correct Order Number for searching!");
 }
 
-function btnSearchBrand_onclick(){
-    alert("search 2");
+//************************************//
+// PO search function by Product Name //
+//************************************//
+function btnSearchByBrand_onclick(){
+    alert("search by product name...");
+    if(document.getElementById("tbxBrand").value!="" && document.getElementById("tbxBrand").value!=undefined){
+        var Brand = document.getElementById("tbxBrand").value;
+        
+        db.transaction(function(tx){
+            tx.executeSql("SELECT*FROM orders where brand=?",
+                            [Brand],
+                            function(tx, rs){
+                                removeAllData();
+                                for (var i=0; i<rs.rows.length; i++){
+                                    showData(rs.rows.item(i),i);
+                                }
+                            },
+                            function(tx, error){
+                                alert(error.source + "::" + error.message);
+                            }
+                        );
+        });
+        
+        btnSubmit_Update_Delete_Done();        
+    }else
+        alert("Please input Product Name for searching!");
 }
+
+//************************************//
+// PO search function by Customer     //
+//************************************//
+function btnSearchByCustomer_onclick(){
+    alert("search by Customer...");
+    if(document.getElementById("tbxCustomer").value!="" && document.getElementById("tbxCustomer").value!=undefined){
+        var Customer = document.getElementById("tbxCustomer").value;
+        
+        db.transaction(function(tx){
+            tx.executeSql("SELECT*FROM orders where customer=?",
+                            [Customer],
+                            function(tx, rs){
+                                removeAllData();
+                                for (var i=0; i<rs.rows.length; i++){
+                                    showData(rs.rows.item(i),i);
+                                }
+                            },
+                            function(tx, error){
+                                alert(error.source + "::" + error.message);
+                            }
+                        );
+        });
+        
+        btnSubmit_Update_Delete_Done();        
+    }else
+        alert("Please input correct Customer for searching!");
+}
+
 
 function checkOrderNumExist(){
     alert("cp119")
@@ -127,6 +196,11 @@ function btnAdd_onclick(){
     data.MoneyRMB = document.getElementById("tbxMoneyRMB").value;
     data.Comment = document.getElementById("tbxComment").value;
 
+    if(data.OrderNum=="" || data.OrderNum==undefined){
+        alert("MUST INPUT ORDER NUMBER!!!")
+        btnSubmit_Update_Delete_Done();
+        return;
+    }
 //ffg=checkOrderNumExist();
 
 //alert("CP333");
@@ -214,8 +288,9 @@ function btnNew_onclick(){
 }
 
 function btnClear_onclick(){
-    if (document.getElementById("btnAdd").disabled==false)
-        document.getElementById("tbxOrderNum").value="";
+//Always keep OrderNum
+//    if (document.getElementById("btnAdd").disabled==false)
+//        document.getElementById("tbxOrderNum").value="";
     document.getElementById("tbxDate").value="";
     document.getElementById("tbxItemNum").value="0";
     document.getElementById("tbxCustomer").value="";
@@ -267,7 +342,7 @@ function showAllData(loadPage){
     //tbxBrand, tbxNum, tbxOrgPrice, tbxDiscount, 
     //tbxFinalPrice, tbxMoneyRMB, tbxComment   
     db.transaction(function(tx){
-        tx.executeSql("CREATE TABLE IF NOT EXISTS orders(ordernum TEXT, date TEXT, itemnum TEXT, customer TEXT, brand TEXT, num INTEGER, orgprice FLOAT, discount FLOAT, finalprice FLOAT, moneyrmb FLOAT, comment TEXT)", []);
+        tx.executeSql("CREATE TABLE IF NOT EXISTS orders(ordernum INTEGER, date TEXT, itemnum TEXT, customer TEXT, brand TEXT, num INTEGER, orgprice FLOAT, discount FLOAT, finalprice FLOAT, moneyrmb FLOAT, comment TEXT)", []);
         tx.executeSql("SELECT * FROM orders", [], function(tx, rs){
             if(!loadPage)
                 removeAllData();
