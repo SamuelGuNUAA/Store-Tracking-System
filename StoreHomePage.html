@@ -39,7 +39,9 @@
                             <td id="td_title_5">Product Name</td>
                             <td id="td_content_5">
                                 <input type="text" name="tbxBrand" id="tbxBrand" maxlength="20" onblur="tbxBrand_onblur();">
+                                <!--
                                 <input type="button" name="btnSearchBrand" id="btnSearchBrand" value="..." onclick="btnSearchByBrand_onclick();">
+                                -->
                                 <!--
                                 <input type="text" name="tbxBrandName" id="tbxBrandName" readonly="true">
                                 -->
@@ -48,21 +50,21 @@
                             <td id="td_content_6">
                                 <input type="number" name="tbxNum" id="tbxNum" maxlength="6" value="0" onblur="autoCalculateFinalPrice_onclick();" onkeypress="Cancel_Input();">
                             </td>
-                            <td id="td_title_7">Original Price (RMB)</td>
+                            <td id="td_title_7">Unit Price</td>
                             <td id="td_content_7">
-                                <input type="text" name="tbxOrgPrice" id="tbxOrgPrice" maxlength="6" value="0" onblur="autoCalculateFinalPrice_onclick();">
+                                <input type="number" name="tbxOrgPrice" id="tbxOrgPrice" maxlength="6" value="0" onblur="autoCalculateFinalPrice_onclick();">
                             </td>
                             <td id="td_title_8">Discount</td>
                             <td id="td_content_8">
-                                <input type="number" name="tbxDiscount" id="tbxDiscount" maxlength="10" value="0.00" onblur="autoCalculateFinalPrice_onclick();">
+                                <input type="number" name="tbxDiscount" id="tbxDiscount" maxlength="10" value="0" onblur="autoCalculateFinalPrice_onclick();">
                             </td>
                         </tr>
                         <tr>
-                            <td id="td_title_9">Final Price (RMB)</td>
+                            <td id="td_title_9">Discount Price</td>
                             <td id="id_content_9">
                                 <input type="text" name="tbxFinalPrice" id="tbxFinalPrice" readonly="true" value="0" onblur="tbxFinalPrice_onblur();">
                             </td>
-                            <td id="td_title_10">Total Payment (RMB)</td>
+                            <td id="td_title_10">Sub-total</td>
                             <td id="id_content_10">
                                 <input type="text" name="tbxMoneyRMB" id="tbxMoneyRMB" readonly="true" value="0">
                             </td>
@@ -92,6 +94,36 @@
                     <input type="button" name="btnDelete" id="btnDelete" value="Delete" onclick="btnDelete_onclick();" disabled=true>
                     <input type="button" name="btnClear" id="btnClear" value="Clear" onclick="btnClear_onclick();"> 
                 </div>
+                <!--Add search input function here...
+                -->
+                <!--
+                <div id="searchDive">
+-->
+                    <table id="searchTable">
+                        <tr>
+                            <td id="search_title_1">Search by Order Number</td>
+                            <td id="search_content_1">
+                                <input type="number" name="tbxSearchbyON" id="tbxSearchbyON" maxlength="10"></td>
+                            <td>    
+                                <input type="button" name="btnSearchbyON" id="btnSearchbyON" value="Query" onclick="btnSearchByOrderNum_onclick();">
+                            </td>
+                            <td id="search_title_3">Search by Customer</td>
+                            <td id="search_content_3">
+                                <input type="text" name="tbxSearchbyCustomer" id="tbxSearchbyCustomer" maxlength="10">
+                            </td>
+                            <td>
+                                <input type="button" name="btnSearchbyCustomer" id="btnSearchbyCustomer" value="Query" onclick="btnSearchByCustomer_onclick();">
+                            </td>
+                            <td id="search_title_4">Search by Product Name</td>
+                            <td id="search_content_4">
+                                <input type="text" name="tbxSearchbyPN" id="tbxSearchbyPN" maxlength="10">
+                            </td>
+                            <td>
+                                <input type="button" name="btnSearchbyPN" id="btnSearchbyPN" value="Query" onclick="btnSearchByProductName_onclick();">
+                            </td> 
+                        </tr>
+                    </table>
+                <!--</div>-->
             </form>
         </section>
         <section>
@@ -105,10 +137,10 @@
                         <th>Customer Name</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
-                        <th>Original Price (RMB)</th>
+                        <th>Unit Price</th>
                         <th>Discount</th>
-                        <th>Final Price (RMB)</th>
-                        <th>Total Price (RMB)</th>
+                        <th>Discount Price</th>
+                        <th>Sub-total</th>
                         <th>Comment</th>
                     </tr>
                 </table>

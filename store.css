@@ -47,17 +47,22 @@ input{
     border:1px solid #0066cc;
     height:18px;
 }
-[id^=btnSearch]{
-    //background-image: url(image/btn_bg1.jpg);
-    background-color: black;
-    width:20px;
-    color:white;
-}
+//[id^=btnSearch]{
+//    background-color: black;
+//    width:20px;
+//    color:white;
+//}
 input:read-only{
     background-color: yellow;
 }
 input:-moz-read-only{
     background-color: yellow;
+}
+input#tbxOrderNum{
+    text-align: right;
+}
+input#tbxItemNum{
+    text-align: right;
 }
 input#tbxNum{
     text-align: right;
@@ -74,12 +79,12 @@ input#tbxFinalPrice{
 input#tbxMoneyRMB{
     text-align: right;
 }
-#tbxGoodsCode{
+#tbxItemNum{
     width:95%;
 }
-#tbxBrand,#tbxPerson,#tbxProduct{
-    width:150px;
-}
+//#tbxBrand,#tbxPerson,#tbxProduct{
+//    width:150px;
+//}
 [id$=\Name]{
     width:60%;
 }
@@ -102,9 +107,36 @@ div input[type="button"]{
     //background-image: url(image/btn_bg1.jpg);
     color: white;
 }
-input[type="text"]#tbxSearchCode{
-    width:100px;
+
+table#searchTable{
+    background-color:white;
+    width: 100%;
 }
+[id^=search_title]{
+    font-size: 12px;
+    color:#333333;
+    background-color: #E6E6E6;
+    width:12%;
+    text-align: right;
+    padding-right: 5px;
+}
+[id^=search_content]{
+    width:12%;
+    height:22;
+    background-color: #FAFAFA;
+    text-align: left;
+    padding-left: 2px;
+}
+[id^=btnSearchby]{
+    font-size: 12px;
+    background-color: #7088AD;
+    color:black;
+    text-align: center;
+    width: 40%;
+}
+
+
+
 div#infoTable{
     overflow: auto;
     width:100%;

@@ -58,9 +58,8 @@ function tbxFinalPrice_onblur(){
 //************************************//
 function btnSearchByOrderNum_onclick(){
     alert("search by Order Nunber...");
-    if(document.getElementById("tbxOrderNum").value!="" && document.getElementById("tbxOrderNum").value!=undefined){
-        var OrderNum = document.getElementById("tbxBrand").value;
-        
+    if(document.getElementById("tbxSearchbyON").value!=="" && document.getElementById("tbxSearchbyON").value!==undefined){
+        var OrderNum = document.getElementById("tbxSearchbyON").value;
         db.transaction(function(tx){
             tx.executeSql("SELECT*FROM orders where ordernum=?",
                             [OrderNum],
@@ -84,10 +83,10 @@ function btnSearchByOrderNum_onclick(){
 //************************************//
 // PO search function by Product Name //
 //************************************//
-function btnSearchByBrand_onclick(){
+function btnSearchByProductName_onclick(){
     alert("search by product name...");
-    if(document.getElementById("tbxBrand").value!="" && document.getElementById("tbxBrand").value!=undefined){
-        var Brand = document.getElementById("tbxBrand").value;
+    if(document.getElementById("tbxSearchbyPN").value!="" && document.getElementById("tbxSearchbyPN").value!=undefined){
+        var Brand = document.getElementById("tbxSearchbyPN").value;
         
         db.transaction(function(tx){
             tx.executeSql("SELECT*FROM orders where brand=?",
@@ -114,8 +113,8 @@ function btnSearchByBrand_onclick(){
 //************************************//
 function btnSearchByCustomer_onclick(){
     alert("search by Customer...");
-    if(document.getElementById("tbxCustomer").value!="" && document.getElementById("tbxCustomer").value!=undefined){
-        var Customer = document.getElementById("tbxCustomer").value;
+    if(document.getElementById("tbxSearchbyCustomer").value!="" && document.getElementById("tbxSearchbyCustomer").value!=undefined){
+        var Customer = document.getElementById("tbxSearchbyCustomer").value;
         
         db.transaction(function(tx){
             tx.executeSql("SELECT*FROM orders where customer=?",
